@@ -12,7 +12,7 @@ const (
 type Discount struct {
 	ID         int
 	Type       string
-	Percentage int
+	Percentage float64
 	Products   []Product
 	Quantity   int
 }
@@ -31,6 +31,20 @@ func buyOneGetOneFree(basket Basket, discountProducts []Product) int {
 				adjustedQuantity = item.Quantity - 1
 			}
 			discountAmount += adjustedQuantity * item.Product.Price / 2
+		}
+	}
+
+	return discountAmount
+}
+
+func bulkDiscount(basket Basket, d *Discount) int {
+	var discountAmount int
+	for _, item := range basket {
+		if isItemOnDiscount(item, d.Products) {
+			if item.Quantity >= d.Quantity {
+				discountPerItem := int(float64(item.Product.Price) * d.Percentage)
+				discountAmount += item.Quantity * discountPerItem
+			}
 		}
 	}
 
