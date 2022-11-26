@@ -21,3 +21,11 @@ func (c *Checkout) scan(product Product) string {
 	c.Basket = append(c.Basket, &newItem)
 	return fmt.Sprintf("%s scanned", product.Name)
 }
+
+func (c *Checkout) calculateTotal() int {
+	var total int
+	for _, item := range c.Basket {
+		total += item.Product.Price * item.Quantity
+	}
+	return total
+}

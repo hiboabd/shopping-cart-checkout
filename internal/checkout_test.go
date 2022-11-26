@@ -71,5 +71,39 @@ func TestScanBasketWithExistingItem(t *testing.T) {
 	assert.Equal(t, Strawberries, checkout.Basket[1].Product.ProductCode)
 	assert.Equal(t, "Supermarket Strawberries", checkout.Basket[1].Product.Name)
 	assert.Equal(t, 500, checkout.Basket[1].Product.Price)
+}
 
+func TestCalculateTotal(t *testing.T) {
+	fruitTea := Product{
+		ProductCode: FruitTea,
+		Name:        "Supermarket Fruit Tea",
+		Price:       311,
+	}
+
+	strawberries := Product{
+		ProductCode: Strawberries,
+		Name:        "Supermarket Strawberries",
+		Price:       500,
+	}
+
+	item := Item{
+		Product:  fruitTea,
+		Quantity: 2,
+	}
+
+	itemStrawberries := Item{
+		strawberries,
+		1,
+	}
+
+	basket := Basket{&item, &itemStrawberries}
+
+	checkout := Checkout{
+		Discounts: []Discount{},
+		Basket:    basket,
+	}
+
+	total := checkout.calculateTotal()
+
+	assert.Equal(t, 1122, total)
 }
