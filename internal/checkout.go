@@ -29,3 +29,11 @@ func (c *Checkout) calculateTotal() int {
 	}
 	return total
 }
+
+func (d *Checkout) calculateDiscount() int {
+	var discountAmount int
+	for _, discount := range d.Discounts {
+		discountAmount += discount.getDiscount(d.Basket)
+	}
+	return discountAmount
+}
