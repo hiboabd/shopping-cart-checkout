@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestAddProductToDiscount(t *testing.T) {
+func TestAddProduct(t *testing.T) {
 	fruitTea := Product{
 		ProductCode: FruitTea,
 		Name:        "Supermarket Fruit Tea",

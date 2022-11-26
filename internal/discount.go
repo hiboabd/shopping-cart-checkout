@@ -1,6 +1,8 @@
 package internal
 
-import "fmt"
+import (
+	"fmt"
+)
 
 const (
 	BOGOF        string = "Buy One Get One Free"
@@ -12,6 +14,7 @@ type Discount struct {
 	Type       string
 	Percentage int
 	Products   []Product
+	Quantity   int
 }
 
 func (d *Discount) addProduct(product Product) string {
