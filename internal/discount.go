@@ -59,3 +59,14 @@ func isItemOnDiscount(item *Item, discountProducts []Product) bool {
 	}
 	return false
 }
+
+func (d *Discount) getDiscount(basket Basket) int {
+	var discountTotal int
+	switch d.Type {
+	case BOGOF:
+		discountTotal += buyOneGetOneFree(basket, d.Products)
+	case BulkDiscount:
+		discountTotal += bulkDiscount(basket, d)
+	}
+	return discountTotal
+}
