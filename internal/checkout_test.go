@@ -156,3 +156,52 @@ func TestCalculateDiscount(t *testing.T) {
 
 	assert.Equal(t, 511, total)
 }
+
+func TestCalculateTotalWithDiscount(t *testing.T) {
+	fruitTea := Product{
+		ProductCode: FruitTea,
+		Name:        "Supermarket Fruit Tea",
+		Price:       311,
+	}
+
+	strawberries := Product{
+		ProductCode: Strawberries,
+		Name:        "Supermarket Strawberries",
+		Price:       500,
+	}
+
+	item := Item{
+		Product:  fruitTea,
+		Quantity: 2,
+	}
+
+	itemStrawberries := Item{
+		strawberries,
+		4,
+	}
+
+	basket := Basket{&item, &itemStrawberries}
+
+	bogofDiscount := Discount{
+		ID:       1,
+		Type:     BOGOF,
+		Products: []Product{fruitTea},
+	}
+
+	bulkDiscount := Discount{
+		ID:         1,
+		Type:       BulkDiscount,
+		Products:   []Product{strawberries},
+		Percentage: 0.1,
+		Quantity:   3,
+	}
+
+	checkout := Checkout{
+		Discounts: []Discount{bogofDiscount, bulkDiscount},
+		Basket:    basket,
+	}
+
+	result := checkout.calculateTotalWithDiscount()
+
+	assert.Equal(t, "Total with discount applied: 21.11", result)
+}

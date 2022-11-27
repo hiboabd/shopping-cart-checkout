@@ -30,10 +30,17 @@ func (c *Checkout) calculateTotal() int {
 	return total
 }
 
-func (d *Checkout) calculateDiscount() int {
+func (c *Checkout) calculateDiscount() int {
 	var discountAmount int
-	for _, discount := range d.Discounts {
-		discountAmount += discount.getDiscount(d.Basket)
+	for _, discount := range c.Discounts {
+		discountAmount += discount.getDiscount(c.Basket)
 	}
 	return discountAmount
+}
+
+func (c *Checkout) calculateTotalWithDiscount() string {
+	total := c.calculateTotal()
+	discount := c.calculateDiscount()
+	totalWithDiscount := total - discount
+	return fmt.Sprintf("Total with discount applied: %.2f", penniesToPounds(totalWithDiscount))
 }
