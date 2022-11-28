@@ -19,7 +19,7 @@ func TestScanEmptyBasket(t *testing.T) {
 
 	assert.Equal(t, 0, len(checkout.Basket))
 
-	message := checkout.scan(fruitTea)
+	message := checkout.Scan(fruitTea)
 	assert.Equal(t, "Supermarket Fruit Tea scanned", message)
 	assert.Equal(t, 1, len(checkout.Basket))
 	assert.Equal(t, 1, checkout.Basket[0].Quantity)
@@ -55,7 +55,7 @@ func TestScanBasketWithExistingItem(t *testing.T) {
 		Price:       500,
 	}
 
-	firstProductMessage := checkout.scan(fruitTea)
+	firstProductMessage := checkout.Scan(fruitTea)
 
 	assert.Equal(t, "Supermarket Fruit Tea scanned", firstProductMessage)
 	assert.Equal(t, 1, len(checkout.Basket))
@@ -64,7 +64,7 @@ func TestScanBasketWithExistingItem(t *testing.T) {
 	assert.Equal(t, "Supermarket Fruit Tea", checkout.Basket[0].Product.Name)
 	assert.Equal(t, 311, checkout.Basket[0].Product.Price)
 
-	secondProductMessage := checkout.scan(strawberries)
+	secondProductMessage := checkout.Scan(strawberries)
 	assert.Equal(t, "Supermarket Strawberries scanned", secondProductMessage)
 	assert.Equal(t, 2, len(checkout.Basket))
 	assert.Equal(t, 1, checkout.Basket[1].Quantity)
@@ -201,7 +201,7 @@ func TestCalculateTotalWithDiscount(t *testing.T) {
 		Basket:    basket,
 	}
 
-	result := checkout.calculateTotalWithDiscount()
+	result := checkout.CalculateTotalWithDiscount()
 
 	assert.Equal(t, "Total with discount applied: 21.11", result)
 }

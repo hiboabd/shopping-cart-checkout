@@ -7,7 +7,7 @@ type Checkout struct {
 	Basket    Basket
 }
 
-func (c *Checkout) scan(product Product) string {
+func (c *Checkout) Scan(product Product) string {
 	for _, item := range c.Basket {
 		if item.Product.ProductCode == product.ProductCode {
 			item.increaseQuantity(1)
@@ -38,7 +38,7 @@ func (c *Checkout) calculateDiscount() int {
 	return discountAmount
 }
 
-func (c *Checkout) calculateTotalWithDiscount() string {
+func (c *Checkout) CalculateTotalWithDiscount() string {
 	total := c.calculateTotal()
 	discount := c.calculateDiscount()
 	totalWithDiscount := total - discount
